@@ -21,6 +21,7 @@ class Table implements Interfaces\Table\TableInterface
     public static function all()
     {
         $this->virtual_table = file($filename);
+        
         return $this->virtual_table;
     }
 
@@ -32,7 +33,7 @@ class Table implements Interfaces\Table\TableInterface
      */
     public static function find($col, $val)
     {
-        
+
     }
 
     /**
