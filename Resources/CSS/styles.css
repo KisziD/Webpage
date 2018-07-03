@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: url(/Resources/Images/Cars-2.jpg) center top;
+    background-size: 100% auto;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+    background: #222222;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav .left {
+    flex: 1;
+}
+
+nav .right {
+    flex: 1;
+    text-align: right;
+}
+
+
+nav a {
+    display: inline-block;
+    padding: 10px 20px;
+    border-bottom: 3px solid transparent;
+}
+
+nav a:hover {
+    border-bottom: 3px solid #6DACFF;
+}
+
+a, a:active, a:link, a:visited {
+    text-decoration: none;
+    color: #fff;
+}
+
+.table {
+    background: rgba(255,255,255,0.8);
+    margin:30px auto;
+}
+
+.table input {
+    width: 100%;
+    margin:0;
+    background: rgba(255,255,255,0.5);
+    color:#000;
+    padding:10px 20px;
+    border:0;
+}
+
+.table input[type="submit"] {
+    cursor: pointer;
+}
+
+.table input:hover {
+    background: rgba(255,255,255,0.7);
+}
+
+.table .data-row td {
+padding:5px;
+}
+
+
+.table .head-row th {
+    padding:10px 20px;
+    text-align: center;
+}
+
+nav .right .far.fa-question-circle{
+    color:#87CEFA;
+}
+
+nav .left .fas.fa-home{
+    color:#59EE59;
+}
+nav .left .fas.fa-car{
+    color: red;
+}
+.Error{
+    background-color: rgba(211, 211, 211, 0.71);
+    text-shadow: 10;
+    text-align: center;
+    font-size: 32px;
+    color: red;
+    border:1px solid black;
+    padding-bottom:0;
+    margin:5px;
+    margin-left:0;
+    margin-right: 0;
+}
