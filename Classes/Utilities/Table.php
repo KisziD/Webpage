@@ -16,9 +16,8 @@ abstract class Table implements \Interfaces\Table\TableInterface
         return $head;
     }
 
-    public static function getFileUrl()
-    {
-        return $_SERVER['DOCUMENT_ROOT'] . static::$filename;
+    public static function getFileUrl(){
+        return $_SERVER['DOCUMENT_ROOT'].static::$filename;
     }
 
     /**
@@ -72,8 +71,8 @@ abstract class Table implements \Interfaces\Table\TableInterface
     public static function findAll($col, $val)
     {
         $found = [];
-        $keys = [];
-        foreach (static::all() as $key => $cucc) {
+        $keys=[];
+        foreach (static::all() as $key=> $cucc) {
 
             if ($cucc[$col] == $val) {
                 $found[] = new static($cucc);
@@ -85,8 +84,8 @@ abstract class Table implements \Interfaces\Table\TableInterface
     /**
      * @param $col string Az oszlop neve
      * @param $val string A cella értéke
-     * @return void
-     */
+    * @return void
+    */
     public function delete()
     {
 
@@ -98,9 +97,9 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public static function deleteAll($col, $val)
     {
-        $keys = [];
-        $keys[] = static::findAll($col, $val);
-        foreach ($keys as $unsetkey) {
+        $keys=[];
+        $keys[]=static::findAll($col, $val);
+        foreach($keys as $unsetkey){
             unset($virtual_table[$key]);
         }
     }
@@ -120,22 +119,28 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public function __construct($data)
     {
-        foreach ($data as $key => $val) {
-            $this->$key = $val;
+        foreach($data as $key =>$val){
+        $this->$key = $val;
         }
     }
 
 }
-class Todo extends Table
-{
-    protected static $filename = "/API/todo.txt";
+class Todo extends Table{
+    protected static $filename="/API/todo.txt";
 }
 
-class Car extends Table
-{
-    protected static $filename = "/API/Todo.txt";
+
+class Car extends Table {
+    protected static $filename= "/Resources/Tables/Cars.txt";
 }
 
+
+foreach(Car::findAll("model", "focus") as $kocsi){
+    echo $kocsi->licence_plate." ";
+    echo $kocsi->manufacturer." ";
+    echo $kocsi->model." ";
+    echo $kocsi->year."</br>";
+}
 foreach (todo::all() as $kocsi) {
     foreach ($kocsi as $todo) {
         echo $todo."</br>";
