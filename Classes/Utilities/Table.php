@@ -3,15 +3,15 @@ namespace Utilities\Table;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Interfaces/TableInterface.php";
 
-class Table implements Interfaces\Table\TableInterface
+class Table implements \Interfaces\Table\TableInterface
 {
-    private $filename = "";
+    private $filename =  "\Resources\Tables\Cars.txt";
     private $colname = "";
-    private $virtual_table=[];
+    private $virtual_table = [];
 
     private function getHead()
     {
-        $table = All();
+        $table = file($_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Cars.txt");
         $head = $table[0];
         return $head;
     }
@@ -20,9 +20,26 @@ class Table implements Interfaces\Table\TableInterface
      */
     public static function all()
     {
-        $this->virtual_table = file($filename);
-        
-        return $this->virtual_table;
+        $virtual_table = file($_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Cars.txt");
+        unset($virtual_table[0]);
+        //letrehozol egy B tömböt
+        $head = explode("|", Table::getHead());
+        $output = [];
+      
+        foreach ($virtual_table as $row) {
+            $row = explode("|", $row);
+            //letrehozol egy A tömböt
+            
+              $element=[];
+            foreach ($head as $key => $headelement) {
+                $element[$headelement] = $row[$key];
+            }
+            $output[]=$element;
+           
+            //beleteszed az A-t a B-be
+
+        } 
+       return $output;
     }
 
     /**
@@ -75,3 +92,5 @@ class Table implements Interfaces\Table\TableInterface
     }
 
 }
+var_dump(Table::all());
+
