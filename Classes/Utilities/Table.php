@@ -50,7 +50,15 @@ class Table implements \Interfaces\Table\TableInterface
      */
     public static function find($col, $val)
     {
-
+        $found;
+  
+        foreach(Table::all() as $key=>$cucc){
+           if(isset($found)){}else{
+            if (array_search($val, $cucc))
+                $found=$cucc;
+        }
+    }
+        return $found;
     }
 
     /**
@@ -60,7 +68,14 @@ class Table implements \Interfaces\Table\TableInterface
      */
     public static function findAll($col, $val)
     {
-
+        $found=[];
+        
+              foreach(Table::all() as $key=>$cucc){
+            
+                  if (array_search($val, $cucc))
+                      $found[]=$cucc;
+             }
+       return $found; 
     }
 
     /**
@@ -92,5 +107,4 @@ class Table implements \Interfaces\Table\TableInterface
     }
 
 }
-var_dump(Table::all());
-
+var_dump(Table::findall("model","focus"));
