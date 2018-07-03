@@ -3,5 +3,6 @@ PHP Server-brapifra
 phpfmt-kokororin
 
 
+git::: $ git push --set-upstream origin master
 
 VSCODE 
