@@ -9,13 +9,6 @@ abstract class Table implements \Interfaces\Table\TableInterface
     private $colname = "";
     private $virtual_table = [];
 
-    private function getHead()
-    {
-        $table = file(static::getFileUrl());
-        $head = $table[0];
-        return $head;
-    }
-
     public static function getFileUrl(){
         return $_SERVER['DOCUMENT_ROOT'].static::$filename;
     }
@@ -25,10 +18,10 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public static function all()
     {
-        $virtual_table = file(static::getFileUrl());
-        unset($virtual_table[0]);
+        $virtual_table = explode("\n",file_get_contents(static::getFileUrl()));
         //letrehozol egy B tömböt
-        $head = explode("|", static::getHead());
+        $head = explode("|", $virtual_table[0]);
+        unset($virtual_table[0]);
         $output = [];
 
         foreach ($virtual_table as $row) {
@@ -71,9 +64,10 @@ abstract class Table implements \Interfaces\Table\TableInterface
     public static function findAll($col, $val)
     {
         $found = [];
-        $keys=[];
-        foreach (static::all() as $key=> $cucc) {
-
+        $all = static::all();
+        foreach ($all as $key=> $cucc) {
+            var_dump($col);
+            var_dump($cucc);
             if ($cucc[$col] == $val) {
                 $found[] = new static($cucc);
             }
@@ -141,8 +135,6 @@ foreach(Car::findAll("model", "focus") as $kocsi){
     echo $kocsi->model." ";
     echo $kocsi->year."</br>";
 }
-foreach (todo::all() as $kocsi) {
-    foreach ($kocsi as $todo) {
-        echo $todo."</br>";
-    }
+foreach (Todo::findAll("todo_name", "asd") as $kocsi) {
+        echo $kocsi->todo_name."</br>";
 }
