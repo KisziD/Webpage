@@ -70,7 +70,7 @@ class Table implements \Interfaces\Table\TableInterface
      */
     public static function deleteAll($col, $val)
     {
-
+        
     }
 
     /**
