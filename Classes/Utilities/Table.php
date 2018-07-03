@@ -3,43 +3,49 @@ namespace Utilities\Table;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Interfaces/TableInterface.php";
 
-class Table implements \Interfaces\Table\TableInterface
+abstract class Table implements \Interfaces\Table\TableInterface
 {
-    private $filename =  "\Resources\Tables\Cars.txt";
+    protected static $filename = "";
     private $colname = "";
     private $virtual_table = [];
 
     private function getHead()
     {
-        $table = file($_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Cars.txt");
+        $table = file(static::getFileUrl());
         $head = $table[0];
         return $head;
     }
+
+    public static function getFileUrl()
+    {
+        return $_SERVER['DOCUMENT_ROOT'] . static::$filename;
+    }
+
     /**
      * @return TableInterface[]
      */
     public static function all()
     {
-        $virtual_table = file($_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Cars.txt");
+        $virtual_table = file(static::getFileUrl());
         unset($virtual_table[0]);
         //letrehozol egy B tömböt
-        $head = explode("|", Table::getHead());
+        $head = explode("|", static::getHead());
         $output = [];
-      
+
         foreach ($virtual_table as $row) {
             $row = explode("|", $row);
             //letrehozol egy A tömböt
-            
-              $element=[];
+
+            $element = [];
             foreach ($head as $key => $headelement) {
                 $element[$headelement] = $row[$key];
             }
-            $output[] =$element;
-           
+            $output[] = $element;
+
             //beleteszed az A-t a B-be
 
-        } 
-       return $output;
+        }
+        return $output;
     }
 
     /**
@@ -50,15 +56,12 @@ class Table implements \Interfaces\Table\TableInterface
      */
     public static function find($col, $val)
     {
-        $found;
-  
-        foreach(Table::all() as $key=>$cucc){
-           if(isset($found)){}else{
-            if (array_search($val, $cucc))
-                $found=$cucc;
+        foreach (static::all() as $key => $cucc) {
+            if ($cucc[$col] == $val) {
+                return new static($cucc);
+            }
+
         }
-    }
-        return $found;
     }
 
     /**
@@ -68,16 +71,26 @@ class Table implements \Interfaces\Table\TableInterface
      */
     public static function findAll($col, $val)
     {
-        $found=[];
-        
-              foreach(Table::all() as $key=>$cucc){
-            
-                  if (array_search($val, $cucc))
-                      $found[]=$cucc;
-             }
-       return $found; 
-    }
+        $found = [];
+        $keys = [];
+        foreach (static::all() as $key => $cucc) {
 
+            if ($cucc[$col] == $val) {
+                $found[] = new static($cucc);
+            }
+
+        }
+        return $found;
+    }
+    /**
+     * @param $col string Az oszlop neve
+     * @param $val string A cella értéke
+     * @return void
+     */
+    public function delete()
+    {
+
+    }
     /**
      * @param $col string Az oszlop neve
      * @param $val string A cella értéke
@@ -85,7 +98,11 @@ class Table implements \Interfaces\Table\TableInterface
      */
     public static function deleteAll($col, $val)
     {
-        
+        $keys = [];
+        $keys[] = static::findAll($col, $val);
+        foreach ($keys as $unsetkey) {
+            unset($virtual_table[$key]);
+        }
     }
 
     /**
@@ -103,8 +120,24 @@ class Table implements \Interfaces\Table\TableInterface
      */
     public function __construct($data)
     {
-
+        foreach ($data as $key => $val) {
+            $this->$key = $val;
+        }
     }
 
 }
-var_dump(Table::findall("model","focus"));
+class Todo extends Table
+{
+    protected static $filename = "/API/todo.txt";
+}
+
+class Car extends Table
+{
+    protected static $filename = "/API/Todo.txt";
+}
+
+foreach (todo::all() as $kocsi) {
+    foreach ($kocsi as $todo) {
+        echo $todo."</br>";
+    }
+}

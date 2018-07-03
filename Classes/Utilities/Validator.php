@@ -2,7 +2,7 @@
 session_start();
 class Validator
 {
-private $valid = true;
+    private $valid = true;
     public function __construct($pattern, $inputs)
     {
         foreach ($pattern as $key => $rules) {
