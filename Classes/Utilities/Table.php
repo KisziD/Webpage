@@ -34,7 +34,7 @@ class Table implements \Interfaces\Table\TableInterface
             foreach ($head as $key => $headelement) {
                 $element[$headelement] = $row[$key];
             }
-            $output[]=$element;
+            $output[] =$element;
            
             //beleteszed az A-t a B-be
 
