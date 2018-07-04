@@ -26,10 +26,10 @@
                 <td>
                     <?= $car->model  ?>
                 </td>
-                <td>
+                <td id="year">
                     <?= $car->year  ?>
                 </td>
-                <td>
+                <td id="VIN">
                     <?= $car->VIN  ?>
                 </td>
             </tr>

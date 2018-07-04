@@ -68,7 +68,10 @@ a, a:active, a:link, a:visited {
 .table .data-row td {
 padding:5px;
 }
-
+.table .todo-data-row td {
+padding:5px;
+text-align: center;
+}
 
 .table .head-row th {
     padding:10px 20px;
@@ -100,4 +103,12 @@ nav .left .fas.fa-car{
 
 .fas.fa-edit{
     color: #52A7F7;
+}
+
+#year{
+    text-align: center;
+}
+
+#VIN{
+    text-align: center;
 }
