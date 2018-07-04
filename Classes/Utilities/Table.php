@@ -6,8 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Interfaces/TableInterface.php";
 abstract class Table implements \Interfaces\Table\TableInterface
 {
     protected static $filename = "";
-    private $colname = "";
-    private $virtual_table = [];
+    protected static $virtual_table = [];
 
     public static function getFileUrl()
     {
@@ -15,37 +14,45 @@ abstract class Table implements \Interfaces\Table\TableInterface
     }
     public static function getAll()
     {
+        $virtual_tableobj=[];
+        foreach(static::all() as $row){
+         $virtual_tableobj[]=new static($row);
+        }
+        return $virtual_tableobj;
 
     }
 
     /**
      * @return TableInterface[]
      */
-    private static function all()
+    protected static function all()
     {
-        $virtual_table = explode("\n", file_get_contents(static::getFileUrl()));
-        foreach ($virtual_table as $key => $vt) {
-            $virtual_table[$key] = trim($vt);
-        }
-        //letrehozol egy B tömböt
-        $head = explode("|", $virtual_table[0]);
-
-        $output = [];
-
-        foreach ($virtual_table as $row) {
-            $row = explode("|", $row);
-            //letrehozol egy A tömböt
-
-            $element = [];
-            foreach ($head as $key => $headelement) {
-                $element[$headelement] = $row[$key];
+        if (empty(static::$virtual_table)) {
+            $virtual_table = explode("\n", file_get_contents(static::getFileUrl()));
+            foreach ($virtual_table as $key => $vt) {
+                $virtual_table[$key] = trim($vt);
             }
-            $output[] = $element;
+            //letrehozol egy B tömböt
+            $head = explode("|", $virtual_table[0]);
 
-            //beleteszed az A-t a B-be
+            $output = [];
 
-        }
-        return $output;
+            foreach ($virtual_table as $row) {
+                $row = explode("|", $row);
+                //letrehozol egy A tömböt
+
+                $element = [];
+                foreach ($head as $key => $headelement) {
+                    $element[$headelement] = $row[$key];
+                }
+                $output[] = $element;
+                //beleteszed az A-t a B-be
+
+            }
+            static::$virtual_table = $output;
+        } 
+            return static::$virtual_table;
+        
     }
 
     private static function save($virtual_table)
@@ -72,16 +79,27 @@ abstract class Table implements \Interfaces\Table\TableInterface
 
         }
     }
+    public static function getLastID()
+    {
+        $virtual_table = static::all();
+        $lastRow = $virtual_table[count($virtual_table) - 1];
+        $lastRowID = $lastRow["id"];
+        return $lastRowID;
+    }
 
+    protected static function incrementID($id)
+    {
+        return ++$id;
+    }
     private static function findAllKeys($col, $val)
     {
         $found = [];
         $all = static::all();
         //var_dump($all);
-        foreach ($all as $key=> $cucc) {
+        foreach ($all as $key => $cucc) {
             if ($cucc[$col] == $val) {
                 $found[] = $key;
-                
+
             }
 
         }
@@ -121,9 +139,9 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public static function deleteAll($col, $val)
     {
-        $virtual_table=static::all();
+        $virtual_table = static::all();
         $keys = static::findAllKeys($col, $val);
-        foreach($keys as $k){
+        foreach ($keys as $k) {
             unset($virtual_table[$k]);
         }
         static::save($virtual_table);
@@ -138,6 +156,9 @@ abstract class Table implements \Interfaces\Table\TableInterface
         $virtual_table = static::all();
         $head = $virtual_table[0];
         $newrow = [];
+        $newrow["id"]=static::incrementID(static::getLastID());
+        $id=$head[0];
+        unset($head[0]);
         foreach ($head as $h) {
             foreach ($data as $key => $d) {
                 if ($key == $h) {
@@ -163,24 +184,5 @@ abstract class Table implements \Interfaces\Table\TableInterface
     }
 
 }
-class Todo extends Table
-{
-    protected static $filename = "/API/todo.txt";
-}
 
-class Car extends Table
-{
-    protected static $filename = "/Resources/Tables/Cars.txt";
-}
-Car::insert(["manufacturer" => "asd", "licence_plate" => "aaa:204", "model" => "focus", "year" => "2010", "VIN" => "12345678901234567"]);
-foreach (Car::findAll("model", "focus") as $kocsi) {
-    echo $kocsi->licence_plate . " ";
-    echo $kocsi->manufacturer . " ";
-    echo $kocsi->model . " ";
-    echo $kocsi->year . "</br>";
-}
-Car::deleteAll("model", "focus");
-Todo::insert(["todoname" => "defdef"]);
-foreach (Todo::findAll("todoname", "defdef") as $kocsi) {
-    echo $kocsi->todoname . "</br>";
-}
+

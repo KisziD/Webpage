@@ -1,11 +1,13 @@
 <?php
+
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/Controller.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Utilities/Cars.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Utilities/Car.php";
 class CarController implements Controller
 {
     public function show()
     {
-        $data = new Car($_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Cars.txt");
+        
+        $cars= Car::getAll();
         if (isset($_SESSION["message"])){$message=explode("|||",$_SESSION["message"]);}else{$message=[];}
         $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/form.php";
         //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
@@ -25,16 +27,12 @@ class CarController implements Controller
         ], $a);
 
         if ($v->isValid() == true) {
-            $db = new Car($_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Cars.txt");
-            $db->insert([
+            Car::insert([
                 "manufacturer" => $a["manufacturer"],
                 "model" => $a["model"],
                 "year" => $a["year"],
                 "VIN" => $a["VIN"],
             ]);
-            $db->save();
-
-
             
         } else{
             $m=$v->getMessages();
