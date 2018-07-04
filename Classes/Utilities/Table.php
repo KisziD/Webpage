@@ -85,7 +85,6 @@ abstract class Table implements \Interfaces\Table\TableInterface
             }
 
         }
-        var_dump($found);
         return $found;
     }
 
@@ -125,7 +124,6 @@ abstract class Table implements \Interfaces\Table\TableInterface
         $virtual_table=static::all();
         $keys = static::findAllKeys($col, $val);
         foreach($keys as $k){
-            var_dump($k);
             unset($virtual_table[$k]);
         }
         static::save($virtual_table);
