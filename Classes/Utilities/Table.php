@@ -9,20 +9,29 @@ abstract class Table implements \Interfaces\Table\TableInterface
     private $colname = "";
     private $virtual_table = [];
 
-    public static function getFileUrl(){
-        return $_SERVER['DOCUMENT_ROOT'].static::$filename;
+    public static function getFileUrl()
+    {
+        return $_SERVER['DOCUMENT_ROOT'] . static::$filename;
+    }
+    public static function getAll()
+    {
+        
     }
 
     /**
      * @return TableInterface[]
      */
-    public static function all()
+    private static function all()
     {
-        $virtual_table = explode("\n",file_get_contents(static::getFileUrl()));
+        $virtual_table = explode("\n", file_get_contents(static::getFileUrl()));
+        foreach ($virtual_table as $key => $vt) {
+            $virtual_table[$key] = trim($vt);
+        }
         //letrehozol egy B tömböt
         $head = explode("|", $virtual_table[0]);
-        unset($virtual_table[0]);
+
         $output = [];
+
 
         foreach ($virtual_table as $row) {
             $row = explode("|", $row);
@@ -65,9 +74,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
     {
         $found = [];
         $all = static::all();
-        foreach ($all as $key=> $cucc) {
-            var_dump($col);
-            var_dump($cucc);
+        foreach ($all as $cucc) {
             if ($cucc[$col] == $val) {
                 $found[] = new static($cucc);
             }
@@ -78,8 +85,8 @@ abstract class Table implements \Interfaces\Table\TableInterface
     /**
      * @param $col string Az oszlop neve
      * @param $val string A cella értéke
-    * @return void
-    */
+     * @return void
+     */
     public function delete()
     {
 
@@ -91,9 +98,9 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public static function deleteAll($col, $val)
     {
-        $keys=[];
-        $keys[]=static::findAll($col, $val);
-        foreach($keys as $unsetkey){
+        $keys = [];
+        $keys[] = static::findAll($col, $val);
+        foreach ($keys as $unsetkey) {
             unset($virtual_table[$key]);
         }
     }
@@ -104,7 +111,25 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public static function insert($data)
     {
+        $file = static::getFileUrl();
+        $virtual_table = static::all();
+        $head=$virtual_table[0];
+        var_dump($head);
+        $newrow=[];
+        foreach($head as $h){
+            foreach($data as $key=> $d){
+                if ($key==$h){
+                    $newrow[$key]=$d;
+                    var_dump($newrow);
+                }
+            }
+        }
+        $virtual_table[] = $newrow;
+        foreach ($virtual_table as $key => $v) {
+                $virtual_table[$key] = implode("|", $v);
+        }
 
+        file_put_contents($file, implode("\n", $virtual_table));
     }
 
     /**
@@ -113,28 +138,29 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public function __construct($data)
     {
-        foreach($data as $key =>$val){
-        $this->$key = $val;
+        foreach ($data as $key => $val) {
+            $this->$key = $val;
         }
     }
 
 }
-class Todo extends Table{
-    protected static $filename="/API/todo.txt";
+class Todo extends Table
+{
+    protected static $filename = "/API/todo.txt";
 }
 
-
-class Car extends Table {
-    protected static $filename= "/Resources/Tables/Cars.txt";
+class Car extends Table
+{
+    protected static $filename = "/Resources/Tables/Cars.txt";
 }
-
-
-foreach(Car::findAll("model", "focus") as $kocsi){
-    echo $kocsi->licence_plate." ";
-    echo $kocsi->manufacturer." ";
-    echo $kocsi->model." ";
-    echo $kocsi->year."</br>";
+Car::insert(["manufacturer" => "asd","licence_plate"=>"aaa:204","model"=>"focus","year"=>"2010","VIN"=>"12345678901234567"]);
+foreach (Car::findAll("model", "focus") as $kocsi) {
+    echo $kocsi->licence_plate . " ";
+    echo $kocsi->manufacturer . " ";
+    echo $kocsi->model . " ";
+    echo $kocsi->year . "</br>";
 }
-foreach (Todo::findAll("todo_name", "asd") as $kocsi) {
-        echo $kocsi->todo_name."</br>";
+Todo::insert(["todoname"=>"defdef"]);
+foreach (Todo::findAll("todoname", "defdef") as $kocsi) {
+    echo $kocsi->todoname . "</br>";
 }

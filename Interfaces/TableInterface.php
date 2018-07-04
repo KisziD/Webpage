@@ -6,7 +6,7 @@ interface TableInterface {
     /**
     * @return TableInterface[]
     */
-    public static function all();
+    public static function getAll();
 
     /**
     * @param $col string Az oszlop neve
