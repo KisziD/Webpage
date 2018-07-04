@@ -35,9 +35,15 @@ class Validator
             return $this->ruleNum($string);
         } elseif (strpos($rule, "if") !== false) {
             return $this->ruleIf(str_replace("{x}", "'$string'", $rule));
+        } elseif ($rule == "required") {
+            return $this->ruleNotEmpty($string);
         }
     }
 
+    private function ruleNotEmpty($string)
+    {
+        return !empty($string);
+    }
     private function ruleAlpha($string)
     {
         return ctype_alpha($string);

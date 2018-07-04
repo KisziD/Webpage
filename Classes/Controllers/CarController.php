@@ -8,6 +8,7 @@ class CarController implements Controller
     {
         
         $cars= Car::getAll();
+        unset($cars[0]);
         if (isset($_SESSION["message"])){$message=explode("|||",$_SESSION["message"]);}else{$message=[];}
         $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/form.php";
         //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";

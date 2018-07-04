@@ -42,4 +42,9 @@ interface TableInterface {
     */
     public function __construct($data);
 
+    /**
+    * @return void
+    */
+    public function save();
 }
+

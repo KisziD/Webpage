@@ -55,7 +55,12 @@ abstract class Table implements \Interfaces\Table\TableInterface
         
     }
 
-    private static function save($virtual_table)
+    public function save()
+    {
+        
+    }
+
+    private static function savetable($virtual_table)
     {
         foreach ($virtual_table as $key => $v) {
             $virtual_table[$key] = implode("|", $v);
@@ -144,7 +149,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
         foreach ($keys as $k) {
             unset($virtual_table[$k]);
         }
-        static::save($virtual_table);
+        static::savetable($virtual_table);
     }
 
     /**
@@ -168,7 +173,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
         }
         $virtual_table[] = $newrow;
 
-        static::save($virtual_table);
+        static::savetable($virtual_table);
 
     }
 

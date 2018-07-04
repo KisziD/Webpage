@@ -20,11 +20,13 @@ Route::post("Cars", function () {
 });
 
 Route::get("todo", function () {
-    $page = $_SERVER['DOCUMENT_ROOT'] . "/Classes/Utilities/todo.php";
-    include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/TodoController.php";
+    $a = new TodoController();
+    $a->show();
 });
-Route::get("get_todo", function () {
-    include $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/TodoController.php";
-    $a=new Todo();
-    $a->getTodo();
+
+Route::post("todo", function () {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/TodoController.php";
+    $a = new TodoController();
+    $a->create($_POST);
 });
