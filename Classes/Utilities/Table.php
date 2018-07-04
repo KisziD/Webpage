@@ -15,7 +15,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
     }
     public static function getAll()
     {
-        
+
     }
 
     /**
@@ -31,7 +31,6 @@ abstract class Table implements \Interfaces\Table\TableInterface
         $head = explode("|", $virtual_table[0]);
 
         $output = [];
-
 
         foreach ($virtual_table as $row) {
             $row = explode("|", $row);
@@ -49,6 +48,15 @@ abstract class Table implements \Interfaces\Table\TableInterface
         return $output;
     }
 
+    private static function save($virtual_table)
+    {
+        foreach ($virtual_table as $key => $v) {
+            $virtual_table[$key] = implode("|", $v);
+        }
+
+        file_put_contents(static::getFileUrl(), implode("\n", $virtual_table));
+    }
+
     /**
      * @param $col string Az oszlop neve
      * @param $val string A cella értéke
@@ -63,6 +71,22 @@ abstract class Table implements \Interfaces\Table\TableInterface
             }
 
         }
+    }
+
+    private static function findAllKeys($col, $val)
+    {
+        $found = [];
+        $all = static::all();
+        //var_dump($all);
+        foreach ($all as $key=> $cucc) {
+            if ($cucc[$col] == $val) {
+                $found[] = $key;
+                
+            }
+
+        }
+        var_dump($found);
+        return $found;
     }
 
     /**
@@ -89,7 +113,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public function delete()
     {
-
+        $remove = static::find();
     }
     /**
      * @param $col string Az oszlop neve
@@ -98,11 +122,13 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public static function deleteAll($col, $val)
     {
-        $keys = [];
-        $keys[] = static::findAll($col, $val);
-        foreach ($keys as $unsetkey) {
-            unset($virtual_table[$key]);
+        $virtual_table=static::all();
+        $keys = static::findAllKeys($col, $val);
+        foreach($keys as $k){
+            var_dump($k);
+            unset($virtual_table[$k]);
         }
+        static::save($virtual_table);
     }
 
     /**
@@ -111,25 +137,20 @@ abstract class Table implements \Interfaces\Table\TableInterface
      */
     public static function insert($data)
     {
-        $file = static::getFileUrl();
         $virtual_table = static::all();
-        $head=$virtual_table[0];
-        var_dump($head);
-        $newrow=[];
-        foreach($head as $h){
-            foreach($data as $key=> $d){
-                if ($key==$h){
-                    $newrow[$key]=$d;
-                    var_dump($newrow);
+        $head = $virtual_table[0];
+        $newrow = [];
+        foreach ($head as $h) {
+            foreach ($data as $key => $d) {
+                if ($key == $h) {
+                    $newrow[$key] = $d;
                 }
             }
         }
         $virtual_table[] = $newrow;
-        foreach ($virtual_table as $key => $v) {
-                $virtual_table[$key] = implode("|", $v);
-        }
 
-        file_put_contents($file, implode("\n", $virtual_table));
+        static::save($virtual_table);
+
     }
 
     /**
@@ -153,14 +174,15 @@ class Car extends Table
 {
     protected static $filename = "/Resources/Tables/Cars.txt";
 }
-Car::insert(["manufacturer" => "asd","licence_plate"=>"aaa:204","model"=>"focus","year"=>"2010","VIN"=>"12345678901234567"]);
+Car::insert(["manufacturer" => "asd", "licence_plate" => "aaa:204", "model" => "focus", "year" => "2010", "VIN" => "12345678901234567"]);
 foreach (Car::findAll("model", "focus") as $kocsi) {
     echo $kocsi->licence_plate . " ";
     echo $kocsi->manufacturer . " ";
     echo $kocsi->model . " ";
     echo $kocsi->year . "</br>";
 }
-Todo::insert(["todoname"=>"defdef"]);
+Car::deleteAll("model", "focus");
+Todo::insert(["todoname" => "defdef"]);
 foreach (Todo::findAll("todoname", "defdef") as $kocsi) {
     echo $kocsi->todoname . "</br>";
 }
