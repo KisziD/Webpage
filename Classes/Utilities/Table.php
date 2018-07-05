@@ -57,8 +57,15 @@ abstract class Table implements \Interfaces\Table\TableInterface
 
     public function save()
     {
-        
-    }
+        foreach ($virtual_table as $key => $v) {
+            $virtual_table[$key] = implode("|", $v);
+        }
+
+        file_put_contents(static::getFileUrl(), implode("\n", $virtual_table));
+    }  
+
+
+    
 
     private static function savetable($virtual_table)
     {
