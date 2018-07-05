@@ -6,7 +6,6 @@ class TodoController implements Controller
 {
     public function show()
     {
-
         $todos = Todo::getAll();
         unset($todos[0]);
         if (isset($_SESSION["message"])) {$message = explode("|||", $_SESSION["message"]);} else { $message = [];}
@@ -35,3 +34,6 @@ class TodoController implements Controller
 
     }
 }
+Todo::modify("4",["finished"=>"1"]);
+
+

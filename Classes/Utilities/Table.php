@@ -14,9 +14,9 @@ abstract class Table implements \Interfaces\Table\TableInterface
     }
     public static function getAll()
     {
-        $virtual_tableobj=[];
-        foreach(static::all() as $row){
-         $virtual_tableobj[]=new static($row);
+        $virtual_tableobj = [];
+        foreach (static::all() as $row) {
+            $virtual_tableobj[] = new static($row);
         }
         return $virtual_tableobj;
 
@@ -50,22 +50,31 @@ abstract class Table implements \Interfaces\Table\TableInterface
 
             }
             static::$virtual_table = $output;
-        } 
-            return static::$virtual_table;
-        
+        }
+        return static::$virtual_table;
+
+    }
+
+    public function modify($id, $data)
+    {
+        $virtual_table = static::all();
+        foreach ($virtual_table as $vkey => $v) {
+            if ($v["id"]==$id) {
+                   $virtual_table[$vkey]=array_replace($virtual_table[$vkey],$data);
+            }
+            
+        }
+        static::savetable($virtual_table);
     }
 
     public function save()
     {
-        foreach ($virtual_table as $key => $v) {
+        foreach (static::all() as $key => $v) {
             $virtual_table[$key] = implode("|", $v);
         }
 
         file_put_contents(static::getFileUrl(), implode("\n", $virtual_table));
-    }  
-
-
-    
+    }
 
     private static function savetable($virtual_table)
     {
@@ -107,7 +116,6 @@ abstract class Table implements \Interfaces\Table\TableInterface
     {
         $found = [];
         $all = static::all();
-        //var_dump($all);
         foreach ($all as $key => $cucc) {
             if ($cucc[$col] == $val) {
                 $found[] = $key;
@@ -168,8 +176,8 @@ abstract class Table implements \Interfaces\Table\TableInterface
         $virtual_table = static::all();
         $head = $virtual_table[0];
         $newrow = [];
-        $newrow["id"]=static::incrementID(static::getLastID());
-        $id=$head[0];
+        $newrow["id"] = static::incrementID(static::getLastID());
+        $id = $head[0];
         unset($head[0]);
         foreach ($head as $h) {
             foreach ($data as $key => $d) {

@@ -2,6 +2,7 @@ id|todoname|finished
 1|asd|1
 2|asda|1
 3|123|1
-4|qwe|0
+4|qwe|1
 5|12345|1
 6|defdef|1
+7|asdasd|0
