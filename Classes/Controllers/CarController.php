@@ -51,4 +51,8 @@ class CarController implements Controller
         include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
         
     }
+    public function del($id)
+    {
+        Car::delete($id);
+    }
 }

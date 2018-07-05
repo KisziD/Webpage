@@ -34,17 +34,20 @@ class TodoController implements Controller
 
     }
     public function modshow()
-    { 
+    {
         $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/todomod.php";
         //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
         include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
     }
     public function mod($id, $a)
-{ 
-    Todo::modify($id, $a);
-    $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/todomod.php";
-    //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
-    include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
-    
-}
+    {
+        Todo::modify($id, $a);
+        $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/todomod.php";
+        //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
+        include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
+
+    }public function del($id)
+    {
+        Todo::delete($id);
+    }
 }

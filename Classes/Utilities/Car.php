@@ -38,5 +38,16 @@ public static function getLastID()
         }
         static::savetable($virtual_table);
     }
+    public static function delete($id)
+    {
+        $virtual_table = static::all();
+        foreach ($virtual_table as $vkey => $v) {
+            if ($v["licence_plate"]==$id) {
+                  unset( $virtual_table[$vkey]);
+            }
+            
+        }
+        static::savetable($virtual_table);
+    }
 
 }

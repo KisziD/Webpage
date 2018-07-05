@@ -8,7 +8,7 @@
         <thead>
             <tr class="head-row">
                 <th>Finished</th>
-                <th>Item</th>
+                <th colspan="3">Item</th>
 
             </tr>
         </thead>
@@ -20,11 +20,24 @@
                     <input type="checkbox" name="finished" <?=($todo->finished) ? "checked" : ""?>>
                 </td>
                 <td>
-                    <?=$todo->todoname?>   
+                    <?=$todo->todoname?>
                 </td>
-<td> <?php
+                <td>
+                    <?php
 
     $link = '<a href="Router.php?page=todomodify&id=#id"><i class="fas fa-edit"></i></a>';
+    $href = $todo->id;
+    $new_href = '#id';
+
+    $new_link = str_replace($new_href, $href, $link);
+
+    echo $new_link;
+
+    ?></td>
+                <td>
+                    <?php
+
+    $link = '<a href="Router.php?page=tododelete&id=#id"><i class="fas fa-eraser"></i></i></a>';
     $href = $todo->id;
     $new_href = '#id';
 
@@ -37,7 +50,7 @@
             <?php }?>
             <tr class="form-row">
                 <td><input type="submit" name="submit" value="submit"></td>
-                <td colspan="2"><input type="text" name="todo"> </td>
+                <td colspan="3"><input type="text" name="todo"> </td>
 
             </tr>
         </tbody>

@@ -127,3 +127,15 @@ width: 50%;
 font-size: 24px;
 border: 4px solid gray;;
 }
+.far.fa-trash-alt{
+    color: red;
+}
+.fas.fa-eraser{
+    color: red;    
+}
+#licence{
+    text-align: center;
+    background: url(/Resources/Images/licenceplate.png) center top;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}

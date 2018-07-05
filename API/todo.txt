@@ -5,5 +5,8 @@ id|todoname|finished
 4|Add option to create new lines in tables|1
 5|Create modify() function|1
 6|Implement modify into todo list|1
-7|Implement modify into cars |0
+7|Implement modify into cars |1
 8|Create Help page|1
+9|Create Delete function|1
+10|Implement delete into cars|1
+11|Implement delete into todo list|1

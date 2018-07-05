@@ -19,7 +19,7 @@
 
             </tr>
             <tr class="form-row">
-            <td><input type="checkbox" name="finished" <?=($todo->finished) ? "checked" : ""?>></td>
+                <td><input type="checkbox" name="finished" <?=($todo->finished) ? "checked" : ""?>></td>
 
                 <td><input type="text" name="todoname"> </td>
 

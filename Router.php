@@ -85,3 +85,16 @@ Route::post("carmodify", function () {
     $a->mod($_GET["id"], $_POST);
  
 });
+
+Route::get("cardelete", function () {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/CarController.php";
+    $a = new CarController();
+    $a->del($_GET["id"]);
+    header("location: Router.php?page=Cars");
+});
+Route::get("tododelete", function () {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/TodoController.php";
+    $a = new TodoController();
+    $a->del($_GET["id"]);
+    header("location: Router.php?page=todo");
+});

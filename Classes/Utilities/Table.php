@@ -55,6 +55,18 @@ abstract class Table implements \Interfaces\Table\TableInterface
 
     }
 
+    public static function delete($id)
+    {
+        $virtual_table = static::all();
+        foreach ($virtual_table as $vkey => $v) {
+            if ($v["id"]==$id) {
+                  unset( $virtual_table[$vkey]);
+            }
+            
+        }
+        static::savetable($virtual_table);
+    }
+
     public static function modify($id, $data)
     {
         $virtual_table = static::all();
@@ -148,10 +160,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
      * @param $val string A cella értéke
      * @return void
      */
-    public function delete()
-    {
-        $remove = static::find();
-    }
+   
     /**
      * @param $col string Az oszlop neve
      * @param $val string A cella értéke
