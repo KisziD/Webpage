@@ -30,3 +30,31 @@ Route::post("todo", function () {
     $a = new TodoController();
     $a->create($_POST);
 });
+Route::get("todomodify", function () {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/TodoController.php";
+    $a = new TodoController();
+    $a->mod($_GET["id"], $_POST);
+});
+Route::post("todomodify", function () { 
+    unset($_POST["submit"]);
+    if($_POST["todoname"]==""){
+        unset($_POST["todoname"]);
+    }
+    if($_POST["finished"]=="on"){
+        $_POST["finished"]=1;
+    }else{
+        $_POST["finished"]=0 ;
+    }
+      header("location: Router.php?page=todo");
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/TodoController.php";
+    $a = new TodoController();
+    $a->mod($_GET["id"], $_POST);
+ 
+});
+
+Route::get("help", function (){
+    $page = $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Help.php";
+    //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
+
+});
