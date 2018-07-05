@@ -1,8 +1,9 @@
 id|todoname|finished
-1|asd|1
-2|asda|1
-3|123|0
-4|asdasd|1
-5|12345|0
-6|defdef|1
-7|asdasd|0
+1|Create webpage|1
+2|Create cars table and form|1
+3|Create Todo list|1
+4|Add option to create new lines in tables|1
+5|Create modify() function|1
+6|Implement modify into todo list|1
+7|Implement modify into cars |0
+8|Create Help page|1

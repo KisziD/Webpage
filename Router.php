@@ -58,3 +58,30 @@ Route::get("help", function (){
     include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
 
 });
+
+Route::get("carmodify", function () {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/CarController.php";
+    $a = new CarController();
+    $a->mod($_GET["id"], $_POST);
+});
+Route::post("carmodify", function () { 
+    unset($_POST["submit"]);
+    if($_POST["manufacturer"]==""){
+        unset($_POST["manufacturer"]);
+    }
+    if($_POST["model"]==""){
+        unset($_POST["model"]);
+    }
+    if($_POST["year"]==""){
+        unset($_POST["year"]);
+    }
+    if($_POST["VIN"]==""){
+        unset($_POST["VIN"]);
+    }
+ 
+      header("location: Router.php?page=Cars");
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/CarController.php";
+    $a = new CarController();
+    $a->mod($_GET["id"], $_POST);
+ 
+});

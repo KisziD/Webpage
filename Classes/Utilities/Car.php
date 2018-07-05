@@ -26,4 +26,17 @@ public static function getLastID()
         return $nextRowID;
 
     }
+
+    public static function modify($id, $data)
+    {
+        $virtual_table = static::all();
+        foreach ($virtual_table as $vkey => $v) {
+            if ($v["licence_plate"]==$id) {
+                   $virtual_table[$vkey]=array_replace($virtual_table[$vkey],$data);
+            }
+            
+        }
+        static::savetable($virtual_table);
+    }
+
 }

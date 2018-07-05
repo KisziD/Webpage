@@ -55,7 +55,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
 
     }
 
-    public function modify($id, $data)
+    public static function modify($id, $data)
     {
         $virtual_table = static::all();
         foreach ($virtual_table as $vkey => $v) {
@@ -76,7 +76,7 @@ abstract class Table implements \Interfaces\Table\TableInterface
         file_put_contents(static::getFileUrl(), implode("\n", $virtual_table));
     }
 
-    private static function savetable($virtual_table)
+    protected static function savetable($virtual_table)
     {
         foreach ($virtual_table as $key => $v) {
             $virtual_table[$key] = implode("|", $v);

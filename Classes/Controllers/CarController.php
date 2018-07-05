@@ -43,4 +43,12 @@ class CarController implements Controller
         header("location: Router.php?page=Cars");
 
     }
+    public function mod($id, $a)
+    { 
+        Car::modify($id, $a);
+        $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Carmod.php";
+        //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
+        include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
+        
+    }
 }

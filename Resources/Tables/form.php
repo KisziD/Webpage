@@ -31,7 +31,19 @@
                 </td>
                 <td id="VIN">
                     <?= $car->VIN  ?>
+                    
                 </td>
+                <td><?php
+
+    $link = '<a href="Router.php?page=carmodify&id=#id"><i class="fas fa-edit"></i></a>';
+    $href = $car->licence_plate;
+    $new_href = '#id';
+
+    $new_link = str_replace($new_href, $href, $link);
+
+    echo $new_link;
+
+    ?></td>
             </tr>
             <?php } ?>
             <tr class="form-row">
@@ -39,7 +51,7 @@
                 <td><input type="text" name="manufacturer"> </td>
                 <td><input type="text" name="model"> </td>
                 <td><input type="text" name="year"> </td>
-                <td><input type="text" name="VIN" size="35"> </td>
+                <td colspan="2"><input type="text" name="VIN" size="35" > </td>
             </tr>
         </tbody>
     </table>
