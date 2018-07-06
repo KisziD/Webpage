@@ -29,7 +29,7 @@
                 <td id="year">
                     <?=$car->year?>
                 </td>
-                <td id="VIN" colspan>
+                <td id="VIN" >
                     <?=$car->VIN?>
 
                 </td>
