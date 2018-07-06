@@ -61,6 +61,7 @@ Route::get("help", function (){
 
 Route::get("carmodify", function () {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/CarController.php";
+    $c=Car::find("licence_plate", $_GET["id"]);
     $a = new CarController();
     $a->mod($_GET["id"], $_POST);
 });

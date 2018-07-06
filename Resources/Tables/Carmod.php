@@ -10,21 +10,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="todo-data-row">
+            <tr class="car-data-row">
                 <td>
+                    <?=$c->manufacturer?>
+                </td>
+                <td>
+                    <?=$c->model?>
 
                 </td>
                 <td>
-                    <?=$car->manufacturer?>
+                    <?=$c->year?>
 
                 </td>
+             <td>
+                    <?=$c->VIN?>
 
-            </tr>
+                </td>
+                </tr>
             <tr class="form-row">
-            <td><input type="text" name="manufacturer"></td>
-            <td><input type="text" name="model"> </td>
-            <td><input type="text" name="year"> </td>
-            <td><input type="text" name="VIN"> </td>
+                <td><input type="text" name="manufacturer"></td>
+                <td><input type="text" name="model"> </td>
+                <td><input type="text" name="year"> </td>
+                <td><input type="text" name="VIN"> </td>
 
             </tr>
             <tr>

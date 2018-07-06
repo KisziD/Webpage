@@ -10,3 +10,5 @@ id|todoname|finished
 9|Create Delete function|1
 10|Implement delete into cars|1
 11|Implement delete into todo list|1
+12|Push to git|1
+13|The webpage is done|1

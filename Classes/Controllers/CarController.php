@@ -45,6 +45,8 @@ class CarController implements Controller
     }
     public function mod($id, $a)
     { 
+        $c=Car::find("licence_plate", $id);
+        
         Car::modify($id, $a);
         $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/Carmod.php";
         //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
