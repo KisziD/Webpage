@@ -3,6 +3,31 @@
     <?php echo $m; ?>
 </p>
 <?php }?>
+
+<script>
+
+    function modify(id,finished) {
+        var url  = "/Router.php?page=modify_todo&id="+id+ "&finished="+(finished ? 1 : 0) ;
+        var xhr  = new XMLHttpRequest()
+        xhr.open('GET', url, true)
+        xhr.onload = function () {
+            /*
+            var users = JSON.parse(xhr.responseText)
+            var content = `<table class="table" width="75%">`
+
+            users.forEach(function(element) {
+                content += `<tr><td>${element}</td></tr>`
+            });
+
+            content += `</table>`
+
+            document.querySelector("#tartalom").innerHTML = content;
+            */
+        }
+        xhr.send(null);
+    }
+</script>
+
 <form method="post" action="">
     <table cellspacing="0" cellpadding="0" class="table">
         <thead>
@@ -17,35 +42,17 @@
             <tr class="todo-data-row">
                 <td>
 
-                    <input type="checkbox" name="finished" <?=($todo->finished) ? "checked" : ""?>>
+                    <input type="checkbox" onclick="modify(<?=$todo->id?>, this.checked);" name="finished" <?=($todo->finished) ? "checked" : ""?>>
                 </td>
                 <td>
                     <?=$todo->todoname?>
                 </td>
                 <td>
-                    <?php
-
-    $link = '<a href="Router.php?page=todomodify&id=#id"><i class="fas fa-edit"></i></a>';
-    $href = $todo->id;
-    $new_href = '#id';
-
-    $new_link = str_replace($new_href, $href, $link);
-
-    echo $new_link;
-
-    ?></td>
+                    <a href="Router.php?page=todomodify&id=<?=$todo->id?>"><i class="fas fa-edit"></i></a>
+                </td>
                 <td>
-                    <?php
-
-    $link = '<a href="Router.php?page=tododelete&id=#id"><i class="fas fa-eraser"></i></i></a>';
-    $href = $todo->id;
-    $new_href = '#id';
-
-    $new_link = str_replace($new_href, $href, $link);
-
-    echo $new_link;
-
-    ?></td>
+                    <a href="Router.php?page=tododelete&id=<?=$todo->id?>"><i class="fas fa-eraser"></i></i></a>
+                </td>
             </tr>
             <?php }?>
             <tr class="form-row">

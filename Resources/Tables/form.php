@@ -34,29 +34,11 @@
 
                 </td>
                 <td>
-                    <?php
-
-    $link = '<a href="Router.php?page=carmodify&id=#id"><i class="fas fa-edit"></i></a>';
-    $href = $car->licence_plate;
-    $new_href = '#id';
-
-    $new_link = str_replace($new_href, $href, $link);
-
-    echo $new_link;
-
-    ?></td>
+                    <a href="Router.php?page=carmodify&id=<?= $car->licence_plate ?>"><i class="fas fa-edit"></i></a>
+                    </td>
                 <td>
-                    <?php
-
-    $link = '<a href="Router.php?page=cardelete&id=#id"><i class="far fa-trash-alt"></i></a>';
-    $href = $car->licence_plate;
-    $new_href = '#id';
-
-    $new_link = str_replace($new_href, $href, $link);
-
-    echo $new_link;
-
-    ?></td>
+                    <a href="Router.php?page=cardelete&id=<?= $car->licence_plate ?>"><i class="far fa-trash-alt"></i></a>
+                </td>
             </tr>
             <?php }?>
             <tr class="form-row">

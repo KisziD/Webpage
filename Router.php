@@ -99,6 +99,12 @@ Route::get("tododelete", function () {
     $a->del($_GET["id"]);
     header("location: Router.php?page=todo");
 });
+Route::get("modify_todo", function () {
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/TodoController.php";
+    $a = new TodoController();
+    $a->mod($_GET["id"],["finished" => $_GET["finished"] ]);
+    header("location: Router.php?page=todo");
+});
 
 Route::get("wat", function () {
     $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/wat.php";

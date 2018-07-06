@@ -6,7 +6,7 @@ class MainPageController implements Controller
 {
     public function show()
     {
-        $page=$_SERVER['DOCUMENT_ROOT']."/index.php";
+        $page=$_SERVER['DOCUMENT_ROOT']."/View/home.php";
         include  $_SERVER['DOCUMENT_ROOT']."/View/Layouts/Main_view.php";
     
     }

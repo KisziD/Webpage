@@ -10,28 +10,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="car-data-row">
-                <td>
-                    <?=$c->manufacturer?>
-                </td>
-                <td>
-                    <?=$c->model?>
-
-                </td>
-                <td>
-                    <?=$c->year?>
-
-                </td>
-             <td>
-                    <?=$c->VIN?>
-
-                </td>
-                </tr>
             <tr class="form-row">
-                <td><input type="text" name="manufacturer"></td>
-                <td><input type="text" name="model"> </td>
-                <td><input type="text" name="year"> </td>
-                <td><input type="text" name="VIN"> </td>
+                <td><input type="text" name="manufacturer" value="<?=$c->manufacturer?>"></td>
+                <td><input type="text" name="model" value="<?=$c->model?>"> </td>
+                <td><input type="text" name="year" value="<?=$c->year?>"> </td>
+                <td><input type="text" name="VIN" value="<?=$c->VIN?>"> </td>
 
             </tr>
             <tr>
