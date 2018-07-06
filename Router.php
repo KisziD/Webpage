@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Utilities/Route.php";
-Route::get("index", function () {
+Route::get("home", function () {
     require_once $_SERVER['DOCUMENT_ROOT'] . "/Classes/Controllers/MainPageController.php";
     $a = new MainPageController();
     $a->show();
