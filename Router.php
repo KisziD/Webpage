@@ -99,3 +99,10 @@ Route::get("tododelete", function () {
     $a->del($_GET["id"]);
     header("location: Router.php?page=todo");
 });
+
+Route::get("wat", function () {
+    $page = $_SERVER['DOCUMENT_ROOT'] . "/Resources/Tables/wat.php";
+    //$page=$_SERVER['DOCUMENT_ROOT']."/Classes/Controllers/CarController.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/View/Layouts/Main_view.php";
+
+});
